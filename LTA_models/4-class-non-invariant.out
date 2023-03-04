@@ -1,0 +1,74 @@
+Mplus VERSION 8.8
+MUTHEN & MUTHEN
+03/03/2023   8:46 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  Non-Invariant LTA
+  DATA:
+  FILE = "C:/Users/Dina Arch/Box/TA - ED 201/Labs/ucsb-mixture-lab7/LTA_models/lta.dat";
+
+  VARIABLE:
+  NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
+       ga33i ga33k ga33l math_g7 math_g10 math_g12 op_know op_know2 siok siok2;
+   MISSING=.;
+   usev = ab39m ab39t ab39u ab39w ab39x  ! 7th grade indicators
+               ga33a ga33h ga33i ga33k ga33l; ! 10th grade indicators
+
+        categorical = ab39m-ab39x ga33a-ga33l;
+
+        classes = c1(4) c2(4);
+  ANALYSIS:
+  estimator = mlr;
+        type = mixture;
+        starts = 500 100;
+        processors=10;
+  MODEL:
+  %overall%
+        c2 on c1; !!! estimate all multinomial logistic regressions !!!
+
+        !!! The above syntax can also be written as: !!!
+                 ! c2#1 on c1#1 c1#2 c1#3; !
+                 ! c2#2 on c1#1 c1#2 c1#3; !
+                 ! c2#3 on c1#1 c1#2 c1#3; !
+
+        MODEL c1: !!! the following syntax will allow item thresholds to be
+        estimated for each class (e.g. noninvariance) !!!
+
+        %c1#1%
+        [AB39M$1-AB39X$1];
+        %c1#2%
+        [AB39M$1-AB39X$1];
+        %c1#3%
+        [AB39M$1-AB39X$1];
+        %c1#4%
+        [AB39M$1-AB39X$1];
+
+        MODEL c2:
+        %c2#1%
+        [GA33A$1-GA33L$1];
+        %c2#2%
+        [GA33A$1-GA33L$1];
+        %c2#3%
+        [GA33A$1-GA33L$1];
+        %c2#4%
+        [GA33A$1-GA33L$1];
+  OUTPUT:
+  tech1 tech15 svalues;
+
+*** ERROR in MODEL command
+  No OVERALL or class label for the following MODEL statement(s):
+  ESTIMATED FOR EACH CLASS (E.G. NONINVARIANCE)
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen
