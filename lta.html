@@ -12,7 +12,7 @@
 <meta name="author" content="YOUR NAME HERE" />
 
 
-<title>Latent Profile Analaysis</title>
+<title>Latent Transition Analaysis</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1508,11 +1508,11 @@ border-radius: 0px;
 
 
 
-<h1 class="title toc-ignore">Latent Profile Analaysis</h1>
+<h1 class="title toc-ignore">Latent Transition Analaysis</h1>
 <h3 class="subtitle">Labs created by Adam Garber, taken from Nylund et
 al. (2022)</h3>
 <h4 class="author">YOUR NAME HERE</h4>
-<h4 class="date">Updated: March 03, 2023</h4>
+<h4 class="date">Updated: March 06, 2023</h4>
 
 </div>
 
@@ -1530,94 +1530,16 @@ survey items collected during 7th and 10th grades from the
   install.packages(&quot;BiocManager&quot;)
 
 BiocManager::install(&quot;rhdf5&quot;)</code></pre>
-<pre><code>## Bioconductor version 3.15 (BiocManager 1.30.18), R 4.2.2 (2022-10-31 ucrt)</code></pre>
-<pre><code>## Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to
-##   re-install: &#39;rhdf5&#39;</code></pre>
-<pre><code>## Installation paths not writeable, unable to update packages
-##   path: C:/Program Files/R/R-4.2.2/library
-##   packages:
-##     boot, class, codetools, foreign, MASS, Matrix, mgcv, nlme, spatial,
-##     survival</code></pre>
-<pre><code>## Old packages: &#39;arm&#39;, &#39;av&#39;, &#39;bayestestR&#39;, &#39;BH&#39;, &#39;BiasedUrn&#39;, &#39;bibliometrix&#39;,
-##   &#39;BiocManager&#39;, &#39;bit&#39;, &#39;blogdown&#39;, &#39;bookdown&#39;, &#39;brew&#39;, &#39;broom&#39;,
-##   &#39;broom.helpers&#39;, &#39;bslib&#39;, &#39;cachem&#39;, &#39;callr&#39;, &#39;car&#39;, &#39;caret&#39;, &#39;classInt&#39;,
-##   &#39;cli&#39;, &#39;collapse&#39;, &#39;colorspace&#39;, &#39;commonmark&#39;, &#39;correlation&#39;, &#39;covr&#39;,
-##   &#39;cpp11&#39;, &#39;crayon&#39;, &#39;curl&#39;, &#39;data.table&#39;, &#39;datawizard&#39;, &#39;dbplyr&#39;, &#39;desc&#39;,
-##   &#39;deSolve&#39;, &#39;devtools&#39;, &#39;digest&#39;, &#39;dplyr&#39;, &#39;DT&#39;, &#39;dtplyr&#39;, &#39;e1071&#39;, &#39;Ecdat&#39;,
-##   &#39;Ecfun&#39;, &#39;effectsize&#39;, &#39;emmeans&#39;, &#39;epiR&#39;, &#39;ergm&#39;, &#39;estimability&#39;, &#39;evaluate&#39;,
-##   &#39;expm&#39;, &#39;extrafont&#39;, &#39;FactoMineR&#39;, &#39;fansi&#39;, &#39;fastmap&#39;, &#39;filesstrings&#39;,
-##   &#39;fixest&#39;, &#39;flextable&#39;, &#39;fontawesome&#39;, &#39;forcats&#39;, &#39;Formula&#39;, &#39;fs&#39;, &#39;furrr&#39;,
-##   &#39;future&#39;, &#39;future.apply&#39;, &#39;gam&#39;, &#39;gargle&#39;, &#39;gdtools&#39;, &#39;gee&#39;, &#39;geepack&#39;,
-##   &#39;generics&#39;, &#39;gert&#39;, &#39;gganimate&#39;, &#39;ggeffects&#39;, &#39;ggmap&#39;, &#39;ggplot2&#39;, &#39;ggpubr&#39;,
-##   &#39;ggrepel&#39;, &#39;ggridges&#39;, &#39;ggsignif&#39;, &#39;ggstatsplot&#39;, &#39;gh&#39;, &#39;gitcreds&#39;, &#39;glmnet&#39;,
-##   &#39;globals&#39;, &#39;gmm&#39;, &#39;gmp&#39;, &#39;googlesheets4&#39;, &#39;gower&#39;, &#39;gtable&#39;, &#39;gtools&#39;,
-##   &#39;gtsummary&#39;, &#39;haven&#39;, &#39;highr&#39;, &#39;Hmisc&#39;, &#39;hms&#39;, &#39;htmlTable&#39;, &#39;htmltools&#39;,
-##   &#39;htmlwidgets&#39;, &#39;httpuv&#39;, &#39;httr&#39;, &#39;hunspell&#39;, &#39;huxtable&#39;, &#39;igraph&#39;, &#39;insight&#39;,
-##   &#39;installr&#39;, &#39;interp&#39;, &#39;irlba&#39;, &#39;isoband&#39;, &#39;janitor&#39;, &#39;joineRML&#39;, &#39;jpeg&#39;,
-##   &#39;jsonlite&#39;, &#39;jtools&#39;, &#39;kernlab&#39;, &#39;knitr&#39;, &#39;ks&#39;, &#39;labelled&#39;, &#39;lava&#39;, &#39;lavaan&#39;,
-##   &#39;learnr&#39;, &#39;lfe&#39;, &#39;lifecycle&#39;, &#39;listenv&#39;, &#39;lm.beta&#39;, &#39;lme4&#39;, &#39;locfit&#39;,
-##   &#39;lpSolve&#39;, &#39;lpSolveAPI&#39;, &#39;lubridate&#39;, &#39;maps&#39;, &#39;maptools&#39;, &#39;markdown&#39;,
-##   &#39;MatrixModels&#39;, &#39;matrixStats&#39;, &#39;MBESS&#39;, &#39;mc2d&#39;, &#39;mclust&#39;, &#39;metafor&#39;, &#39;minqa&#39;,
-##   &#39;mnormt&#39;, &#39;modeldata&#39;, &#39;modelr&#39;, &#39;multcomp&#39;, &#39;naniar&#39;, &#39;network&#39;, &#39;officer&#39;,
-##   &#39;OpenMx&#39;, &#39;openssl&#39;, &#39;openxlsx&#39;, &#39;ordinal&#39;, &#39;packrat&#39;, &#39;paletteer&#39;,
-##   &#39;parallelly&#39;, &#39;parameters&#39;, &#39;partitions&#39;, &#39;patchwork&#39;, &#39;pbapply&#39;, &#39;pbkrtest&#39;,
-##   &#39;pcaPP&#39;, &#39;performance&#39;, &#39;pillar&#39;, &#39;pkgbuild&#39;, &#39;pkgload&#39;, &#39;plm&#39;, &#39;plotly&#39;,
-##   &#39;plyr&#39;, &#39;PMCMRplus&#39;, &#39;png&#39;, &#39;pracma&#39;, &#39;prismatic&#39;, &#39;processx&#39;, &#39;progressr&#39;,
-##   &#39;pryr&#39;, &#39;ps&#39;, &#39;purrr&#39;, &#39;qgraph&#39;, &#39;quantreg&#39;, &#39;rainbow&#39;, &#39;randtoolbox&#39;,
-##   &#39;raster&#39;, &#39;rbibutils&#39;, &#39;Rcpp&#39;, &#39;RcppArmadillo&#39;, &#39;RcppEigen&#39;, &#39;RcppParallel&#39;,
-##   &#39;RcppTOML&#39;, &#39;rcrossref&#39;, &#39;RCurl&#39;, &#39;Rdpack&#39;, &#39;readr&#39;, &#39;readxl&#39;, &#39;recipes&#39;,
-##   &#39;renv&#39;, &#39;reprex&#39;, &#39;rgeos&#39;, &#39;rlang&#39;, &#39;rmarkdown&#39;, &#39;Rmpfr&#39;, &#39;rngWELL&#39;,
-##   &#39;robust&#39;, &#39;rockchalk&#39;, &#39;roxygen2&#39;, &#39;rrcov&#39;, &#39;rsample&#39;, &#39;rsconnect&#39;,
-##   &#39;rstatix&#39;, &#39;rstudioapi&#39;, &#39;Rttf2pt1&#39;, &#39;rversions&#39;, &#39;rvest&#39;, &#39;s2&#39;, &#39;sass&#39;,
-##   &#39;scales&#39;, &#39;scatterplot3d&#39;, &#39;semPlot&#39;, &#39;seriation&#39;, &#39;servr&#39;, &#39;sets&#39;, &#39;sf&#39;,
-##   &#39;sfsmisc&#39;, &#39;shiny&#39;, &#39;sjPlot&#39;, &#39;sjstats&#39;, &#39;slider&#39;, &#39;sna&#39;, &#39;sourcetools&#39;,
-##   &#39;sp&#39;, &#39;spatialreg&#39;, &#39;spData&#39;, &#39;spdep&#39;, &#39;statmod&#39;, &#39;statnet.common&#39;,
-##   &#39;statsExpressions&#39;, &#39;strex&#39;, &#39;stringdist&#39;, &#39;stringi&#39;, &#39;stringr&#39;, &#39;svglite&#39;,
-##   &#39;sys&#39;, &#39;systemfit&#39;, &#39;terra&#39;, &#39;testthat&#39;, &#39;tibble&#39;, &#39;tidyr&#39;, &#39;tidyselect&#39;,
-##   &#39;tidytext&#39;, &#39;tidyverse&#39;, &#39;timeDate&#39;, &#39;tinytex&#39;, &#39;tokenizers&#39;, &#39;transformr&#39;,
-##   &#39;tree&#39;, &#39;tseries&#39;, &#39;TSP&#39;, &#39;tweenr&#39;, &#39;ucminf&#39;, &#39;units&#39;, &#39;urca&#39;, &#39;utf8&#39;,
-##   &#39;vctrs&#39;, &#39;viridisLite&#39;, &#39;visdat&#39;, &#39;visNetwork&#39;, &#39;vroom&#39;, &#39;webshot&#39;,
-##   &#39;whisker&#39;, &#39;wk&#39;, &#39;xfun&#39;, &#39;XML&#39;, &#39;xts&#39;, &#39;yaml&#39;, &#39;zip&#39;, &#39;zoo&#39;</code></pre>
 <p>Load packages</p>
-<pre class="r"><code>library(MplusAutomation)</code></pre>
-<pre><code>## Version:  1.1.0
-## We work hard to write this free software. Please help us get credit by citing: 
-## 
-## Hallquist, M. N. &amp; Wiley, J. F. (2018). MplusAutomation: An R Package for Facilitating Large-Scale Latent Variable Analyses in Mplus. Structural Equation Modeling, 25, 621-638. doi: 10.1080/10705511.2017.1402334.
-## 
-## -- see citation(&quot;MplusAutomation&quot;).</code></pre>
-<pre class="r"><code>library(rhdf5)
-library(tidyverse)       </code></pre>
-<pre><code>## ── Attaching packages
-## ───────────────────────────────────────
-## tidyverse 1.3.2 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-## ✔ tibble  3.1.7     ✔ dplyr   1.0.9
-## ✔ tidyr   1.2.0     ✔ stringr 1.4.1
-## ✔ readr   2.1.2     ✔ forcats 0.5.1
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ tidyr::extract() masks MplusAutomation::extract()
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ dplyr::lag()     masks stats::lag()</code></pre>
-<pre class="r"><code>library(here)            </code></pre>
-<pre><code>## here() starts at C:/Users/Dina Arch/Box/TA - ED 201/Labs/ucsb-mixture-lab7</code></pre>
-<pre class="r"><code>library(glue)            
-library(janitor)            </code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;
-## 
-## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre class="r"><code>library(gt) 
-library(reshape2)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;reshape2&#39;
-## 
-## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     smiths</code></pre>
-<pre class="r"><code>library(cowplot)
+<pre class="r"><code>library(MplusAutomation)
+library(rhdf5)
+library(tidyverse)       
+library(here)            
+library(glue)            
+library(janitor)            
+library(gt) 
+library(reshape2)
+library(cowplot)
 #library(PNWColors)
 library(ggrepel)
 library(haven)</code></pre>
@@ -1625,13 +1547,6 @@ library(haven)</code></pre>
 <p>Read in LSAY data file, <code>lsay_new.csv</code>.</p>
 <pre class="r"><code>lsay_data &lt;- read_csv(here(&quot;data&quot;,&quot;lsay_lta_faq.csv&quot;),
                       na=c(&quot;9999&quot;,&quot;9999.00&quot;))</code></pre>
-<pre><code>## Rows: 3116 Columns: 21
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## dbl (21): casenum, cohort, female, minority, ab39m, ab39t, ab39u, ab39w, ab3...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <hr />
 <div id="enumeration" class="section level1">
 <h1>Enumeration</h1>
@@ -1679,90 +1594,6 @@ enum_t1_fit &lt;- mplusModeler(enum_t1,
                  modelout=glue(here(&quot;enum_LCA_time1&quot;, &quot;c{k}_lca_enum_time1.inp&quot;)),
                  check=TRUE, run = TRUE, hashfilename = FALSE)
 })</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-1_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-2_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-3_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-4_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-5_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-6_Time1
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 7th grade science attitude indicators !!!
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 18:     !!! NOTE CHANGE: The intial and final start values. Reduce to speed up estimation time. !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
-<pre><code>## The file(s)
-##  &#39;t1.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
 <p><strong>NOTE:</strong> It is highly recommended that you check the
 output (<code>.out</code>) files to check for convergence warnings or
 syntax errors.</p>
@@ -1803,60 +1634,6 @@ enum_t2_fit &lt;- mplusModeler(enum_t2,
                  modelout=glue(here(&quot;enum_LCA_time2&quot;, &quot;c{k}_lca_enum_time2.inp&quot;)),
                  check=TRUE, run = TRUE, hashfilename = FALSE)
 })</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-1_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-2_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-3_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-4_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-5_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Class-6_Time2
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  !!! NOTE CHANGE: List of the five 10th grade science attitude indicators !!!</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;t2.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
 <hr />
 </div>
 </div>
@@ -1899,8 +1676,6 @@ allFit2 &lt;- enum_extract2 %&gt;%
   arrange(Parameters)
 
 allFit &lt;- full_join(allFit1,allFit2)</code></pre>
-<pre><code>## Joining, by = c(&quot;Title&quot;, &quot;Parameters&quot;, &quot;LL&quot;, &quot;BIC&quot;, &quot;aBIC&quot;, &quot;CIAC&quot;, &quot;AWE&quot;,
-## &quot;BLRT_PValue&quot;, &quot;T11_VLMR_PValue&quot;, &quot;BF&quot;, &quot;cmPk&quot;)</code></pre>
 <hr />
 </div>
 <div id="format-fit-table" class="section level2">
@@ -1952,18 +1727,11 @@ allFit &lt;- full_join(allFit1,allFit2)</code></pre>
   row_group_order(
       groups = c(&quot;Time-1&quot;,&quot;Time-2&quot;)
       )</code></pre>
-<pre><code>## Warning: Since gt v0.6.0 the `fmt_missing()` function is deprecated and will soon be
-## removed.
-## • Use the `sub_missing()` function instead.</code></pre>
-<pre><code>## Warning: Since gt v0.3.0 the `group` argument has been deprecated.
-## • Use the `label` argument to specify the group label.
-## Since gt v0.3.0 the `group` argument has been deprecated.
-## • Use the `label` argument to specify the group label.</code></pre>
-<div id="remkcsyaky" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="lmrmruaton" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-#remkcsyaky .gt_table {
+#lmrmruaton .gt_table {
 display: table;
 border-collapse: collapse;
 margin-left: auto;
@@ -1987,7 +1755,7 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#remkcsyaky .gt_heading {
+#lmrmruaton .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -1998,11 +1766,11 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#remkcsyaky .gt_caption {
+#lmrmruaton .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#remkcsyaky .gt_title {
+#lmrmruaton .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2013,7 +1781,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#remkcsyaky .gt_subtitle {
+#lmrmruaton .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2024,12 +1792,12 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#remkcsyaky .gt_bottom_border {
+#lmrmruaton .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#remkcsyaky .gt_col_headings {
+#lmrmruaton .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2043,7 +1811,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#remkcsyaky .gt_col_heading {
+#lmrmruaton .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2062,7 +1830,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#remkcsyaky .gt_column_spanner_outer {
+#lmrmruaton .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2073,13 +1841,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#remkcsyaky .gt_column_spanner_outer:first-child {
+#lmrmruaton .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#remkcsyaky .gt_column_spanner_outer:last-child {
+#lmrmruaton .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#remkcsyaky .gt_column_spanner {
+#lmrmruaton .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -2090,7 +1858,7 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#remkcsyaky .gt_group_heading {
+#lmrmruaton .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2115,7 +1883,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#remkcsyaky .gt_empty_group_heading {
+#lmrmruaton .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -2129,13 +1897,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#remkcsyaky .gt_from_md > :first-child {
+#lmrmruaton .gt_from_md > :first-child {
 margin-top: 0;
 }
-#remkcsyaky .gt_from_md > :last-child {
+#lmrmruaton .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#remkcsyaky .gt_row {
+#lmrmruaton .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2153,7 +1921,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#remkcsyaky .gt_stub {
+#lmrmruaton .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2165,7 +1933,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#remkcsyaky .gt_stub_row_group {
+#lmrmruaton .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2178,10 +1946,10 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#remkcsyaky .gt_row_group_first td {
+#lmrmruaton .gt_row_group_first td {
 border-top-width: 2px;
 }
-#remkcsyaky .gt_summary_row {
+#lmrmruaton .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2190,14 +1958,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#remkcsyaky .gt_first_summary_row {
+#lmrmruaton .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#remkcsyaky .gt_first_summary_row.thick {
+#lmrmruaton .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#remkcsyaky .gt_last_summary_row {
+#lmrmruaton .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2206,7 +1974,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#remkcsyaky .gt_grand_summary_row {
+#lmrmruaton .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2215,7 +1983,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#remkcsyaky .gt_first_grand_summary_row {
+#lmrmruaton .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2224,10 +1992,10 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#remkcsyaky .gt_striped {
+#lmrmruaton .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#remkcsyaky .gt_table_body {
+#lmrmruaton .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2235,7 +2003,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#remkcsyaky .gt_footnotes {
+#lmrmruaton .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2248,7 +2016,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#remkcsyaky .gt_footnote {
+#lmrmruaton .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-left: 4px;
@@ -2256,7 +2024,7 @@ padding-right: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#remkcsyaky .gt_sourcenotes {
+#lmrmruaton .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2269,58 +2037,58 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#remkcsyaky .gt_sourcenote {
+#lmrmruaton .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#remkcsyaky .gt_left {
+#lmrmruaton .gt_left {
 text-align: left;
 }
-#remkcsyaky .gt_center {
+#lmrmruaton .gt_center {
 text-align: center;
 }
-#remkcsyaky .gt_right {
+#lmrmruaton .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#remkcsyaky .gt_font_normal {
+#lmrmruaton .gt_font_normal {
 font-weight: normal;
 }
-#remkcsyaky .gt_font_bold {
+#lmrmruaton .gt_font_bold {
 font-weight: bold;
 }
-#remkcsyaky .gt_font_italic {
+#lmrmruaton .gt_font_italic {
 font-style: italic;
 }
-#remkcsyaky .gt_super {
+#lmrmruaton .gt_super {
 font-size: 65%;
 }
-#remkcsyaky .gt_footnote_marks {
+#lmrmruaton .gt_footnote_marks {
 font-style: italic;
 font-weight: normal;
 font-size: 75%;
 vertical-align: 0.4em;
 }
-#remkcsyaky .gt_asterisk {
+#lmrmruaton .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#remkcsyaky .gt_indent_1 {
+#lmrmruaton .gt_indent_1 {
 text-indent: 5px;
 }
-#remkcsyaky .gt_indent_2 {
+#lmrmruaton .gt_indent_2 {
 text-indent: 10px;
 }
-#remkcsyaky .gt_indent_3 {
+#lmrmruaton .gt_indent_3 {
 text-indent: 15px;
 }
-#remkcsyaky .gt_indent_4 {
+#lmrmruaton .gt_indent_4 {
 text-indent: 20px;
 }
-#remkcsyaky .gt_indent_5 {
+#lmrmruaton .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -2645,27 +2413,6 @@ lta_inv_fit &lt;- mplusModeler(lta_inv,
                  dataout=here(&quot;LTA_models&quot;, &quot;lta.dat&quot;),
                  modelout=here(&quot;LTA_models&quot;, &quot;4-class-invariant.inp&quot;),
                  check=TRUE, run = TRUE, hashfilename = FALSE)</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Invariant LTA
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  usev = ab39m ab39t ab39u ab39w ab39x  ! 7th grade indicators
-## 11:              ga33a ga33h ga33i ga33k ga33l; ! 10th grade indicators
-## 22: %overall%
-## 26:       %c1#1%
-## 27:       [AB39M$1-AB39X$1] (1-5);  !!! labels that are repeated will constrain parameters to equality !!!
-## 28:       %c1#2%
-## 30:       %c1#3%
-## 32:       %c1#4%
-## 36:       %c2#1%
-## 38:       %c2#2%
-## 40:       %c2#3%
-## 42:       %c2#4%</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The following lines are longer than 90 characters
-## 27:       [AB39M$1-AB39X$1] (1-5);  !!! labels that are repeated will constrain parameters to equality !!!</code></pre>
-<pre><code>## Mplus will ignore everything after the 90th character on a line.
-## Consider breaking the line(s)</code></pre>
 <hr />
 </div>
 <div id="estimate-non-invariant-estimated-lta-model" class="section level2">
@@ -2729,36 +2476,6 @@ lta_non_inv_fit &lt;- mplusModeler(lta_non_inv,
                      dataout=here(&quot;LTA_models&quot;, &quot;lta.dat&quot;),
                      modelout=here(&quot;LTA_models&quot;, &quot;4-class-non-invariant.inp&quot;),
                      check=TRUE, run = TRUE, hashfilename = FALSE)</code></pre>
-<pre><code>## When hashfilename = FALSE, writeData cannot be &#39;ifmissing&#39;, setting to &#39;always&#39;</code></pre>
-<pre><code>## The following lines are not empty and do not end in a : or ;.
-## 2: Non-Invariant LTA
-## 7: NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
-## 10:  usev = ab39m ab39t ab39u ab39w ab39x  ! 7th grade indicators
-## 11:              ga33a ga33h ga33i ga33k ga33l; ! 10th grade indicators
-## 22: %overall%
-## 23:       c2 on c1; !!! estimate all multinomial logistic regressions !!!
-## 25:       !!! The above syntax can also be written as: !!!
-## 26:                ! c2#1 on c1#1 c1#2 c1#3; !  
-## 27:                ! c2#2 on c1#1 c1#2 c1#3; !
-## 28:                ! c2#3 on c1#1 c1#2 c1#3; !
-## 30:       MODEL c1: !!! the following syntax will allow item thresholds to be 
-## 31:       estimated for each class (e.g. noninvariance) !!!
-## 33:       %c1#1%
-## 35:       %c1#2%
-## 37:       %c1#3%
-## 39:       %c1#4%
-## 43:       %c2#1%
-## 45:       %c2#2%
-## 47:       %c2#3%
-## 49:       %c2#4%</code></pre>
-<pre><code>## Rerun with parseMplus(add = TRUE) to add semicolons to all lines</code></pre>
-<pre><code>## The file(s)
-##  &#39;lta.dat&#39; 
-## currently exist(s) and will be overwritten</code></pre>
-<pre><code>## Warning in system(command, intern = TRUE, invisible = (!showOutput), wait
-## = TRUE): running command &#39;C:\WINDOWS\system32\cmd.exe /c cd &quot;C:\Users\Dina
-## Arch\Box\TA - ED 201\Labs\ucsb-mixture-lab7\LTA_models&quot; &amp;&amp; &quot;Mplus&quot; &quot;4-class-non-
-## invariant.inp&quot;&#39; had status 1</code></pre>
 </div>
 <div id="conduct-sattorra-bentler-adjusted-log-likelihood-ratio-difference-testing" class="section level2">
 <h2>Conduct Sattorra-Bentler adjusted Log Likelihood Ratio Difference
@@ -2887,11 +2604,11 @@ t_matrix %&gt;%
     has the values rearranged by class for interpretation purposes. Classes may be arranged
     directly through Mplus syntax using start values.&quot;), 
     locations = cells_title())</code></pre>
-<div id="xrwdhtzynj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="erfhmlkcuf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-#xrwdhtzynj .gt_table {
+#erfhmlkcuf .gt_table {
 display: table;
 border-collapse: collapse;
 margin-left: auto;
@@ -2915,7 +2632,7 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_heading {
+#erfhmlkcuf .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -2926,11 +2643,11 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_caption {
+#erfhmlkcuf .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#xrwdhtzynj .gt_title {
+#erfhmlkcuf .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2941,7 +2658,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#xrwdhtzynj .gt_subtitle {
+#erfhmlkcuf .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2952,12 +2669,12 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#xrwdhtzynj .gt_bottom_border {
+#erfhmlkcuf .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_col_headings {
+#erfhmlkcuf .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2971,7 +2688,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_col_heading {
+#erfhmlkcuf .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2990,7 +2707,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#xrwdhtzynj .gt_column_spanner_outer {
+#erfhmlkcuf .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3001,13 +2718,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#xrwdhtzynj .gt_column_spanner_outer:first-child {
+#erfhmlkcuf .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#xrwdhtzynj .gt_column_spanner_outer:last-child {
+#erfhmlkcuf .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#xrwdhtzynj .gt_column_spanner {
+#erfhmlkcuf .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -3018,7 +2735,7 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#xrwdhtzynj .gt_group_heading {
+#erfhmlkcuf .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3043,7 +2760,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#xrwdhtzynj .gt_empty_group_heading {
+#erfhmlkcuf .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3057,13 +2774,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#xrwdhtzynj .gt_from_md > :first-child {
+#erfhmlkcuf .gt_from_md > :first-child {
 margin-top: 0;
 }
-#xrwdhtzynj .gt_from_md > :last-child {
+#erfhmlkcuf .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#xrwdhtzynj .gt_row {
+#erfhmlkcuf .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3081,7 +2798,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#xrwdhtzynj .gt_stub {
+#erfhmlkcuf .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3093,7 +2810,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xrwdhtzynj .gt_stub_row_group {
+#erfhmlkcuf .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3106,10 +2823,10 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#xrwdhtzynj .gt_row_group_first td {
+#erfhmlkcuf .gt_row_group_first td {
 border-top-width: 2px;
 }
-#xrwdhtzynj .gt_summary_row {
+#erfhmlkcuf .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3118,14 +2835,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xrwdhtzynj .gt_first_summary_row {
+#erfhmlkcuf .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_first_summary_row.thick {
+#erfhmlkcuf .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#xrwdhtzynj .gt_last_summary_row {
+#erfhmlkcuf .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3134,7 +2851,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_grand_summary_row {
+#erfhmlkcuf .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3143,7 +2860,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xrwdhtzynj .gt_first_grand_summary_row {
+#erfhmlkcuf .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3152,10 +2869,10 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_striped {
+#erfhmlkcuf .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#xrwdhtzynj .gt_table_body {
+#erfhmlkcuf .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3163,7 +2880,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_footnotes {
+#erfhmlkcuf .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3176,7 +2893,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_footnote {
+#erfhmlkcuf .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-left: 4px;
@@ -3184,7 +2901,7 @@ padding-right: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xrwdhtzynj .gt_sourcenotes {
+#erfhmlkcuf .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3197,58 +2914,58 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#xrwdhtzynj .gt_sourcenote {
+#erfhmlkcuf .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#xrwdhtzynj .gt_left {
+#erfhmlkcuf .gt_left {
 text-align: left;
 }
-#xrwdhtzynj .gt_center {
+#erfhmlkcuf .gt_center {
 text-align: center;
 }
-#xrwdhtzynj .gt_right {
+#erfhmlkcuf .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#xrwdhtzynj .gt_font_normal {
+#erfhmlkcuf .gt_font_normal {
 font-weight: normal;
 }
-#xrwdhtzynj .gt_font_bold {
+#erfhmlkcuf .gt_font_bold {
 font-weight: bold;
 }
-#xrwdhtzynj .gt_font_italic {
+#erfhmlkcuf .gt_font_italic {
 font-style: italic;
 }
-#xrwdhtzynj .gt_super {
+#erfhmlkcuf .gt_super {
 font-size: 65%;
 }
-#xrwdhtzynj .gt_footnote_marks {
+#erfhmlkcuf .gt_footnote_marks {
 font-style: italic;
 font-weight: normal;
 font-size: 75%;
 vertical-align: 0.4em;
 }
-#xrwdhtzynj .gt_asterisk {
+#erfhmlkcuf .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#xrwdhtzynj .gt_indent_1 {
+#erfhmlkcuf .gt_indent_1 {
 text-indent: 5px;
 }
-#xrwdhtzynj .gt_indent_2 {
+#erfhmlkcuf .gt_indent_2 {
 text-indent: 10px;
 }
-#xrwdhtzynj .gt_indent_3 {
+#erfhmlkcuf .gt_indent_3 {
 text-indent: 15px;
 }
-#xrwdhtzynj .gt_indent_4 {
+#erfhmlkcuf .gt_indent_4 {
 text-indent: 20px;
 }
-#xrwdhtzynj .gt_indent_5 {
+#erfhmlkcuf .gt_indent_5 {
 text-indent: 25px;
 }
 </style>

@@ -1,5 +1,5 @@
 ---
-title: "Latent Profile Analaysis"
+title: "Latent Transition Analaysis"
 subtitle: 'Labs created by Adam Garber, taken from Nylund et al. (2022)'
 author: "YOUR NAME HERE"
 date: "Updated: `r format(Sys.time(), '%B %d, %Y')`"
@@ -14,7 +14,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache =TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache =TRUE, warning = FALSE, message = FALSE)
 ```
 
 
