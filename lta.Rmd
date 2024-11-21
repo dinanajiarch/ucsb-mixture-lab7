@@ -70,7 +70,7 @@ lsay_data <- read_csv(here("data","lsay_lta_faq.csv"),
 
 ## Enumerate Time Point 1 (7th grade)
 
-```{r}
+```{r, eval = FALSE}
 
 # NOTE CHANGE: '1:6' indicates the number of k-class models to estimate
 # User can change this number to fit research context
@@ -121,7 +121,7 @@ enum_t1_fit <- mplusModeler(enum_t1,
 
 ## Enumerate Time Point 2 (10th grade)
 
-```{r}
+```{r, eval = FALSE}
 
 t2_enum_k_16  <- lapply(1:6, function(k) { 
   enum_t2  <- mplusObject(                 
@@ -191,7 +191,7 @@ enum_extract2 <- LatexSummaryTable(output_enum_t2,
                            
 allFit1 <- enum_extract1 %>% 
   mutate(aBIC = -2*LL+Parameters*log((Observations+2)/24)) %>% 
-  mutate(CIAC = -2*LL+Parameters*(log(Observations)+1)) %>% 
+  mutate(CAIC = -2*LL+Parameters*(log(Observations)+1)) %>% 
   mutate(AWE = -2*LL+2*Parameters*(log(Observations)+1.5)) %>%
   mutate(SIC = -.5*BIC) %>% 
   mutate(expSIC = exp(SIC - max(SIC))) %>% 
@@ -202,7 +202,7 @@ allFit1 <- enum_extract1 %>%
 
 allFit2 <- enum_extract2 %>% 
   mutate(aBIC = -2*LL+Parameters*log((Observations+2)/24)) %>% 
-  mutate(CIAC = -2*LL+Parameters*(log(Observations)+1)) %>% 
+  mutate(CAIC = -2*LL+Parameters*(log(Observations)+1)) %>% 
   mutate(AWE = -2*LL+2*Parameters*(log(Observations)+1.5)) %>%
   mutate(SIC = -.5*BIC) %>% 
   mutate(expSIC = exp(SIC - max(SIC))) %>% 
@@ -220,12 +220,15 @@ allFit <- full_join(allFit1,allFit2)
 ## Format Fit Table
 
 ```{r, eval=TRUE}
+rows_m1 <- 1:6
+rows_m2 <- 7:12
+
 
 allFit %>% 
   mutate(Title = str_remove(Title, "_Time*")) %>% 
   gt() %>%
   tab_header(
-    title = md("**Model Fit Summary Table**"), subtitle = md("&nbsp;")) %>% 
+    title = md("**Model Fit Summary Table**")) %>% 
   cols_label(
     Title = "Classes",
     Parameters = md("Par"),
@@ -267,7 +270,63 @@ allFit %>%
     rows = 7:12) %>% 
   row_group_order(
       groups = c("Time-1","Time-2")
-      )
+      ) %>% 
+   tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = list(cells_body(
+     columns = BIC,
+     row = BIC == min(BIC[rows_m1]) # Model 1
+    ),
+    cells_body(
+     columns = aBIC,
+     row = aBIC == min(aBIC[rows_m1])
+    ),
+    cells_body(
+     columns = CAIC,
+     row = CAIC == min(CAIC[rows_m1])
+    ),
+    cells_body(
+     columns = AWE,
+     row = AWE == min(AWE[rows_m1])
+    ),
+    cells_body(
+     columns = cmPk,
+     row =  cmPk == max(cmPk[rows_m1])
+     ),   
+    cells_body(
+     columns = BIC,
+     row = BIC == min(BIC[rows_m2]) # Model 2
+    ),
+    cells_body(
+     columns = aBIC,
+     row = aBIC == min(aBIC[rows_m2])
+    ),
+    cells_body(
+     columns = CAIC,
+     row = CAIC == min(CAIC[rows_m2])
+    ),
+    cells_body(
+     columns = AWE,
+     row = AWE == min(AWE[rows_m2])
+    ),
+    cells_body(
+     columns = cmPk,
+     row =  cmPk == max(cmPk[rows_m2])
+     ),  
+    cells_body(
+     columns = BF, 
+     row =  BF > 10),
+    cells_body(
+     columns =  BLRT_PValue,
+     row =  ifelse(BLRT_PValue < .05 & lead(BLRT_PValue) > .05, BLRT_PValue < .05, NA)),
+    cells_body(
+     columns =  T11_VLMR_PValue,
+     row =  ifelse(T11_VLMR_PValue < .05 & lead(T11_VLMR_PValue) > .05, T11_VLMR_PValue < .05, NA))
+  )
+)
+
 
 ```
 
@@ -368,7 +427,7 @@ ggsave(here("figures", "T2_C4_LCA_plot.png"), dpi=300, height=5, width=7, units=
 
 ## Estimate Invariant LTA Model
 
-```{r}
+```{r, eval = FALSE}
 
 lta_inv <- mplusObject(
   
@@ -433,7 +492,7 @@ lta_inv_fit <- mplusModeler(lta_inv,
 
 ## Estimate Non-Invariant Estimated LTA Model
 
-```{r}
+```{r, eval = FALSE}
 
 lta_non_inv <- mplusObject(
   
@@ -463,8 +522,7 @@ lta_non_inv <- mplusObject(
                ! c2#2 on c1#1 c1#2 c1#3; !
                ! c2#3 on c1#1 c1#2 c1#3; !
 
-      MODEL c1: !!! the following syntax will allow item thresholds to be 
-      estimated for each class (e.g. noninvariance) !!!
+      MODEL c1: !!! the following syntax will allow item thresholds to be estimated for each class (e.g. noninvariance) !!!
       
       %c1#1%
       [AB39M$1-AB39X$1]; 
@@ -538,7 +596,7 @@ df <- abs(p0 - p1)
 
 ```
 
-**RESULT**: The Log Likelihood $\chi^2$ difference test comparing the invariant and non-invariant LTA models was, $\chi^2 (20) = 18.23, p = .572$.
+**RESULT**: The Log Likelihood $\chi^2$ difference test comparing the invariant and non-invariant LTA models was, $\chi^2 (20) = 21.542, p = .624$.
 
 [Reference](https://stats.idre.ucla.edu/mplus/faq/how-can-i-compute-a-chi-square-test-for-nested-models-with-the-mlr-or-mlm-estimators/)
     

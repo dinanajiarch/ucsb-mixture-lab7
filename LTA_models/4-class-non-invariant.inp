@@ -1,8 +1,8 @@
 TITLE:
 Non-Invariant LTA
 DATA:
-FILE = "C:/Users/Dina Arch/Box/TA - ED 201/Labs/ucsb-mixture-lab7/LTA_models/lta.dat";
- 
+FILE = "C:/Users/dinan/Box/TA - ED 201/Labs/ucsb-mixture-lab7/LTA_models/
+lta.dat"; 
 VARIABLE:
 NAMES = casenum cohort female minority ab39m ab39t ab39u ab39w ab39x ga33a ga33h
      ga33i ga33k ga33l math_g7 math_g10 math_g12 op_know op_know2 siok siok2; 
@@ -27,8 +27,7 @@ MODEL:
                ! c2#2 on c1#1 c1#2 c1#3; !
                ! c2#3 on c1#1 c1#2 c1#3; !
 
-      MODEL c1: !!! the following syntax will allow item thresholds to be 
-      estimated for each class (e.g. noninvariance) !!!
+      MODEL c1: !!! the following syntax will allow item thresholds to be estimated for each class (e.g. noninvariance) !!!
       
       %c1#1%
       [AB39M$1-AB39X$1]; 
