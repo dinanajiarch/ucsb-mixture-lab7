@@ -968,7 +968,7 @@ step3  <- mplusObject(
  "estimator = mlr; 
   type = mixture; 
   starts = 0;",
-  
+ 
   MODEL =
   glue(
  " %OVERALL%
@@ -1021,8 +1021,10 @@ step3  <- mplusObject(
   [N_T2#1@{logit_cprobs_T2[4,1]}];
   [N_T2#2@{logit_cprobs_T2[4,2]}];
   [N_T2#3@{logit_cprobs_T2[4,3]}];"),
-
  
+ 
+  OUTPUT = "tech15;",
+  
   usevariables = colnames(savedata), 
   rdata = savedata)
 
