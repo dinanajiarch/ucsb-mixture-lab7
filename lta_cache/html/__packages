@@ -18,3 +18,8 @@ cowplot
 ggrepel
 haven
 lubridate
+modelsummary
+corrplot
+DiagrammeR
+PNWColors
+filesstrings

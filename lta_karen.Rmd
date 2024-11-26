@@ -14,7 +14,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, cache =TRUE, warning = FALSE, message = FALSE)
 ```
 
 
@@ -53,7 +53,6 @@ library(haven)
 library(modelsummary)
 library(corrplot)
 library(DiagrammeR)
-library(filesstrings)
 ```
 
 --------------------------------------------------------------------------------------
@@ -695,17 +694,11 @@ rdata = data,
 ANALYSIS = "PROCESSORS IS 10; STARTS = 500 100; PARAMETERIZATION = PROBABILITY;",
 VARIABLE = "CATEGORICAL = ab39m-ab39x ga33a-ga33l;")
 
-#runModels(filefilter = "sci_attitude")
-
-# Move files to folder 
-files <- list.files(here(), pattern = "sci_attitude")
-move_files(files, here("LTA_models"), overwrite = TRUE)
+runModels(filefilter = "sci_attitude")
 
 results <- readModels(filefilter = "sci_attitude")
 
 ```
-    
---------------------------------------------------------------------------------------
 
 Read invariance model and extract parameters (intercepts and multinomial regression coefficients)
 
@@ -961,7 +954,7 @@ step3  <- mplusObject(
   
   VARIABLE = 
  "nominal=N_T1 N_T2;
-  usevar = N_T1 N_T2 SCI_IRT7 FEMALE;
+  usevar = N_T1 N_T2   SCI_IRT7 FEMALE;
   classes = c1(4) c2(4);" ,
   
   ANALYSIS = 
@@ -1020,7 +1013,9 @@ step3  <- mplusObject(
    %c2#4%
   [N_T2#1@{logit_cprobs_T2[4,1]}];
   [N_T2#2@{logit_cprobs_T2[4,2]}];
-  [N_T2#3@{logit_cprobs_T2[4,3]}];"),
+  [N_T2#3@{logit_cprobs_T2[4,3]}];
+ 
+  output: tech15;"),
 
  
   usevariables = colnames(savedata), 
@@ -1099,23 +1094,19 @@ t_matrix %>%
 ```{r}
 # REFERENCE CLASS 4
 cov <- as.data.frame(lta_model[["parameters"]][["unstandardized"]]) %>%
-  filter(param %in% c("SCI_IRT7", "FEMALE")) %>% 
+  filter(param %in% c("SCI_ISSU", "SCI_IRT7", "FEMALE")) %>% 
   mutate(param = case_when(
+            param == "SCI_ISSU" ~ "Interest in Science Issues",
             param == "SCI_IRT7" ~ "Science IRT Score",
             param == "FEMALE" ~ "Gender"),
-    se = paste0("(", format(round(se,2), nsmall =2), ")")) %>% 
-  separate(paramHeader, into = c("Time", "Class"), sep = "#") %>% 
-  mutate(Class = case_when(
-            Class == "1.ON" ~ "Pro-Science",
-            Class == "2.ON" ~ "Amb. / Elev. Utility",
-            Class == "3.ON" ~ "Amb. / Min. Utility"),
-         Time = case_when(
-            Time == "C1" ~ "7th Grade (T1)",
-            Time == "C2" ~ "10th Grade (T2)",
-         )
+    se = paste0("(", format(round(se,2), nsmall =2), ")"),
+    paramHeader = case_when(
+            paramHeader == "C1#1.ON" ~ "Pro-Science",
+            paramHeader == "C1#2.ON" ~ "Amb. / Elev. Utility",
+            paramHeader == "C1#3.ON" ~ "Amb. / Min. Utility")
          ) %>% 
   unite(estimate, est, se, sep = " ") %>% 
-  select(Time:pval, -est_se) %>% 
+  select(paramHeader:pval, -est_se) %>% 
   mutate(pval = ifelse(pval<0.001, paste0("<.001*"),
                        ifelse(pval<0.05, paste0(scales::number(pval, accuracy = .001), "*"),
                               scales::number(pval, accuracy = .001))))
@@ -1124,10 +1115,9 @@ cov <- as.data.frame(lta_model[["parameters"]][["unstandardized"]]) %>%
 # Create table
 
 cov_m1 <- cov %>% 
-  group_by(param, Class) %>% 
-  gt() %>% 
+  gt(groupname_col = "param", rowname_col = "paramHeader") %>%
   tab_header(
-    title = "Relations Between the Covariates and Latent Class") %>%
+    title = "Relations Between the Covariates and Latent Class  (T1)") %>%
   tab_footnote(
     footnote = md(
       "Reference Group: Anti-Science"
@@ -1135,7 +1125,6 @@ cov_m1 <- cov %>%
 locations = cells_title()
   ) %>% 
   cols_label(
-    param = md("Covariate"),
     estimate = md("Estimate (*se*)"),
     pval = md("*p*-value")) %>% 
   sub_missing(1:3,
